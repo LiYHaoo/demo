@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/swiper.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <title>综合信息管理平台</title>
+</head>
+
+<body>
+    <div class="ui-resize">
+        <div class="ui-contanier">
+            <div class="ui-header">
+                <div class="m-date">
+                    <div class="head-time" id="dateHms">00 : 00 : 00</div>
+                    <div class="head-data" id="dateYmd">2019 / 01 / 01</div>
+                    <div class="head-week" id="dateWeek">星期三</div>
+                </div>
+                <div class="m-title">
+                    <a href="javascript: void(0)">综合信息管理平台</a>
+                </div>
+                <div class="m-weather"></div>
+            </div>
+            <div class="ui-main">
+                <!-- Swiper -->
+                <div class="swiper-container swiper-1">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" style="background-image:url(./images/demo-content.png)" rel="0">生产
+                        </div>
+                        <div class="swiper-slide" style="background-image:url(./images/demo-content.png)" rel="2">营帐
+                        </div>
+                        <div class="swiper-slide" style="background-image:url(./images/demo-content.png)" rel="1">首页
+                        </div>
+                        <div class="swiper-slide" style="background-image:url(./images/demo-content.png)" rel="3">客服
+                        </div>
+                        <div class="swiper-slide" style="background-image:url(./images/demo-content.png)" rel="4">漏损
+                        </div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+            <div class="ui-menu">
+                <div class="swiper-container swiper-2" id="mMenu">
+                    <div class="swiper-wrapper">
+                    </div>
+                </div>
+            </div>
+            <div class="ui-sub-menu" id="subMenu">
+            </div>
+        </div>
+    </div>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/swiper.js"></script>
+    <script src="./js/custom.js"></script>
+    <script>
+        var dateTimer;
+        var swiper3 = null;
+        var specialData = [{ name: "生产", code: 1 }, { name: "营帐", code: 2 }, { name: "首页", code: 0 }, { name: "客服", code: 3 }, { name: "漏损", code: 4 }]
+        var menuData = [
+            {
+                "name": "生产",
+                "url": "hzsw/dipacth",
+                "id": 1,
+                "child": [{
+                    "name": "千岛湖引水",
+                    "url": "hzsw/bigScreen/waterDiversion",
+                    "id": 11,
+                }, {
+                    "name": "二次供水",
+                    "url": "hzsw/bigScreen/goSecondSupply",
+                    "id": 12,
+                }, {
+                    "name": "供水概况",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                }, {
+                    "name": "总览",
+                    "url": "hzsw/bigScreen/view",
+                    "id": 14,
+                }, {
+                    "name": "排水概况",
+                    "url": "hzsw/bigScreen/goDrain",
+                    "id": 15,
+                }, {
+                    "name": "排水概化图",
+                    "url": "hzsw/conceptual/view",
+                    "id": 16,
+                }, {
+                    "name": "数据中心",
+                    "url": "hzsw/bigScreen/allView",
+                    "id": 17,
+                }]
+            },
+            {
+                "name": "营帐",
+                "url": "hzsw/dipacth",
+                "id": 2,
+                "child": [{
+                    "name": "热线服务",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                }, {
+                    "name": "营业收入",
+                    "url": "hzsw/bigScreen/view",
+                    "id": 14,
+                }, {
+                    "name": "季度经营情况",
+                    "url": "hzsw/bigScreen/goDrain",
+                    "id": 15,
+                }, {
+                    "name": "当月反馈情况",
+                    "url": "hzsw/bigScreen/goDrain",
+                    "id": 15,
+                }]
+            }, {
+                "name": "首页",
+                "url": "hzsw/dipacth",
+                "id": 0,
+                "child": [{
+                    "name": "总览",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                }]
+            }, {
+                "name": "客服",
+                "url": "hzsw/dipacth",
+                "id": 3,
+                "child": [{
+                    "name": "客服1",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                },
+                {
+                    "name": "客服2",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                },
+                {
+                    "name": "客服3",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                }]
+            }, {
+                "name": "漏损",
+                "url": "hzsw/dipacth",
+                "id": 4,
+                "child": [{
+                    "name": "漏损1",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                },
+                {
+                    "name": "漏损2",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                },
+                {
+                    "name": "漏损3",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                },
+                {
+                    "name": "漏损4",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                },
+                {
+                    "name": "漏损5",
+                    "url": "hzsw/bigScreen/supply",
+                    "id": 13
+                }]
+            }
+        ];
+        var dataList = [{
+            "name": "清泰水厂",
+            "url": "hzsw/bigScreen/supply",
+            "id": 13
+        }, {
+            "name": "九溪水厂",
+            "url": "hzsw/bigScreen/supply",
+            "id": 13
+        }, {
+            "name": "南星水厂",
+            "url": "hzsw/bigScreen/supply",
+            "id": 13
+        }, {
+            "name": "祥符水厂",
+            "url": "hzsw/bigScreen/supply",
+            "id": 13
+        }, {
+            "name": "城西水厂",
+            "url": "hzsw/bigScreen/supply",
+            "id": 13
+        },
+        {
+            "name": "七格污水厂",
+            "url": "hzsw/bigScreen/supply",
+            "id": 13
+        }];
+        $(function () {
+            setDate();
+            clearInterval(dateTimer);
+            dateTimer = setInterval(setDate, 1000); // 更新时间
+
+            var swiper1 = Swiper('.swiper-container.swiper-1', {
+                pagination: '.swiper-1 .swiper-pagination',
+                effect: 'coverflow',
+                initialSlide: 2,
+                grabCursor: true,
+                centeredSlides: true,
+                paginationClickable: true,
+                slidesPerView: 'auto',
+                coverflow: {
+                    rotate: 60,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: true
+                },
+                paginationBulletRender: function (swiper, index, className) {
+                    return '<span class="' + className + '"><span class="text">' + specialData[
+                        index].name + '</span></span>';
+                },
+                onTransitionEnd: function (swiper, e) {
+                    var activeSlide = swiper.slides[swiper.activeIndex];
+                    var code = $(activeSlide).attr("rel");
+                    loadModule(code);
+                }
+            });
+
+            $("#mMenu").on("click tab", '.swiper-slide', function () {
+                var _this = $(this);
+                var url = _this.attr("data-url");
+                var code= _this.attr("data-code");
+                _this.addClass("active").siblings().removeClass("active");
+                loadDetailList(code);
+            });
+
+            loadModule(1); // 默认加载首页
+
+            var swiper2 = Swiper('.swiper-container.swiper-2bf', {
+                slidesPerView: $(".swiper-2 .swiper-slide").length,
+                paginationClickable: true,
+                spaceBetween: 20,
+                onInit: function (swiper) {
+                    var slides = swiper.slides;
+                    var len = slides.length;
+                    var gap = Math.floor(len / 2);
+                    //swiper.trigger("click");
+
+                    if (len % 2 !== 0) {
+                        // 个数为偶数时
+                        for (var i = 0; i < len; i++) {
+                            if (i < gap) {
+                                slides[i].classList.add('left-item-' + (gap - i));
+                            } else if (i > gap) {
+                                slides[i].classList.add('right-item-' + (i - gap));
+                            } else {
+                                slides[i].classList.add('center-item');
+                            }
+                        }
+
+                    } else {
+                        // 个数为奇数时
+                        for (var i = 0; i < len; i++) {
+                            if (i < gap - 1) {
+                                slides[i].classList.add('left-item-' + (gap - 1 - i));
+                            } else if (i > gap) {
+                                slides[i].classList.add('right-item-' + (i - gap));
+                            } else {
+                                slides[i].classList.add('center-item');
+                            }
+                        }
+                    }
+                },
+                onSliderMove: function (swiper, e) {
+                    e.preventDefault;
+                },
+                onClick: function (swiper, e) {
+                    $(swiper.clickedSlide).addClass("active").siblings().removeClass("active");
+                }
+            });
+        });
+
+        // 设置日期
+        function setDate() {
+            var date = updateDate();
+            $("#dateYmd").text(date.ymd);
+            $("#dateWeek").text(date.week);
+            $("#dateHms").text(date.hms);
+        }
+
+        // 加载模块菜单
+        function loadModule(code) {
+            var menuList = [];
+            var html = "";
+            menuData.forEach(function (item) {
+                if (item.id == code) {
+                    menuList = item.child;
+                }
+            });
+            html = menuTemplate(menuList);
+
+            $("#mMenu .swiper-wrapper").html(html).addClass("active");
+            $("#mMenu .swiper-slide").eq(Math.floor(menuList.length / 2)).trigger("click");
+        }
+
+        function menuTemplate(data) {
+            var html = "";
+            data = data || [];
+            var len = data.length;
+            var gap = Math.floor(len / 2);
+            var itemClass = '';
+
+            data.forEach(function (item, index) {
+                if (len % 2 !== 0) {
+                    if (index < gap) {
+                        itemClass = 'left-item-' + (gap - index);
+                    } else if (index > gap) {
+                        itemClass = 'right-item-' + (index - gap);
+                    } else {
+                        itemClass = 'center-item';
+                    }
+
+                } else {
+                    // 个数为奇数时
+                    if (index < gap - 1) {
+                        itemClass = 'left-item-' + (gap - 1 - index);
+                    } else if (index > gap) {
+                        itemClass = 'right-item-' + (index - gap);
+                    } else {
+                        itemClass = 'center-item';
+                    }
+                }
+                html += '<div class="swiper-slide ' + itemClass + '" data-url="' + item.url + '" data-code="'+ item.id +'">' + item.name + '</div>';
+            });
+
+            return html;
+        }
+
+        // 加载内容
+        function loadDetailList(code) {
+            var html = detailListTemplate(code, dataList);
+            var length = dataList.length;
+            var initialSlideIndex = length % 2 == 0 ? length / 2 - 1 : Math.floor(length / 2) - 1;
+            $("#subMenu").html(html);
+
+            var swiper3 = Swiper('.swiper-container.swiper-3', {
+                pagination: '.swiper-3 .swiper-pagination',
+                nextButton: '#swiperButtonNext',
+                prevButton: '#swiperButtonPrev',
+                effect: 'coverflow',
+                initialSlide: initialSlideIndex - 1,
+                slidesPerView: 4,
+                paginationClickable: true,
+                spaceBetween: 50,
+                coverflow: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 500,
+                    modifier: 0.8,
+                    slideShadows: true
+                },
+                onClick: function (swiper, e) {
+                    $(swiper.clickedSlide).addClass("active").siblings().removeClass("active");
+                    //alert($(swiper.clickedSlide).text())
+                }
+            });
+        }
+
+        function detailListTemplate(code, data) {
+            var html = "";
+            data = data || [];
+            data.forEach(function (item, index) {
+                html += '<div class="swiper-slide style-'+ code +'"><div class="text">' + item.name + '</div><div class="infos"></div></div>';
+            });
+
+            html = '<div class="swiper-container swiper-3" id="detailSwiper">' +
+                    '<div class="swiper-wrapper">'+ html +'</div>' +
+                    '<div class="swiper-pagination"></div>' +
+                '</div>';
+            return html;
+        }
+    </script>
+</body>
+
+</html>

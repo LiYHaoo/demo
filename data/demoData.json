@@ -1,0 +1,36 @@
+[
+    {
+        "name": "生产",
+        "url": "hzsw/dipacth",
+        "id": 1,
+        "child": [{
+            "name": "千岛湖引水",
+            "url": "hzsw/bigScreen/waterDiversion",
+            "id": 11,
+        },{
+            "name": "二次供水",
+            "url": "hzsw/bigScreen/goSecondSupply",
+            "id": 12,
+        },{
+            "name": "供水概况",
+            "url": "hzsw/bigScreen/supply",
+            "id": 13
+        },{
+            "name": "总览",
+            "url": "hzsw/bigScreen/view",
+            "id": 14,
+        },{
+           "name": "排水概况",
+           "url": "hzsw/bigScreen/goDrain",
+           "id": 15,
+        },{
+            "name": "排水概化图",
+            "url": "hzsw/conceptual/view",
+            "id": 16,
+        },{
+            "name": "数据中心",
+            "url": "hzsw/bigScreen/allView",
+            "id": 17,
+        }]
+    },
+]
