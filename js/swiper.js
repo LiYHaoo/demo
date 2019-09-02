@@ -1590,7 +1590,6 @@
         };
         
         s.onTouchMove = function (e) {
-            debugger;
             if(e.preventDefault) {  
                 // Firefox  
                 e.preventDefault();  
