@@ -1590,6 +1590,7 @@
         };
         
         s.onTouchMove = function (e) {
+            debugger;
             if(e.preventDefault) {  
                 // Firefox  
                 e.preventDefault();  
@@ -1788,7 +1789,7 @@
                 e.stopPropagation();  
             } else{  
                 // IE  
-                e.cancelBubble=true;  
+                e.cancelBubble=true; 
                 e.returnValue = false;  
             }  
 
