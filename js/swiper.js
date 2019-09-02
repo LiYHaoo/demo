@@ -1536,8 +1536,15 @@
         // Touch handlers
         var isTouchEvent, startMoving;
         s.onTouchStart = function (e) {
-            e.stopPropagation();
-            e.preventDefault();
+            if(e.preventDefault) {  
+                // Firefox  
+                e.preventDefault();  
+                e.stopPropagation();  
+            } else{  
+                // IE  
+                e.cancelBubble=true;  
+                e.returnValue = false;  
+            } 
             if (e.originalEvent) e = e.originalEvent;
             isTouchEvent = e.type === 'touchstart';
             if (!isTouchEvent && 'which' in e && e.which === 3) return;
@@ -1583,8 +1590,15 @@
         };
         
         s.onTouchMove = function (e) {
-            e.stopPropagation();
-            e.preventDefault();
+            if(e.preventDefault) {  
+                // Firefox  
+                e.preventDefault();  
+                e.stopPropagation();  
+            } else{  
+                // IE  
+                e.cancelBubble=true;  
+                e.returnValue = false;  
+            }  
             if (e.originalEvent) e = e.originalEvent;
             if (isTouchEvent && e.type === 'mousemove') return;
             if (e.preventedByNestedSwiper) {
@@ -1768,8 +1782,16 @@
             s.setWrapperTranslate(currentTranslate);
         };
         s.onTouchEnd = function (e) {
-            e.stopPropagation();
-            e.preventDefault();
+            if(e.preventDefault) {  
+                // Firefox  
+                e.preventDefault();  
+                e.stopPropagation();  
+            } else{  
+                // IE  
+                e.cancelBubble=true;  
+                e.returnValue = false;  
+            }  
+
             if (e.originalEvent) e = e.originalEvent;
             if (allowTouchCallbacks) {
                 s.emit('onTouchEnd', s, e);
